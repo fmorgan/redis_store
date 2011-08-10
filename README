@@ -1,0 +1,25 @@
+Ruby on Rails HTTP session storage with Redis:
+http://redis.io/
+
+Install the following:
+ Redis distribution:  redis-2.2.11
+ Redis Ruby gem: redis (2.1.1)
+
+Make this change to your Ruby on Rails app:
+ Copy redis_store.rb to the lib directory
+
+ Copy error_helper.rb (from ../cassandra_store) to the app/models directory
+
+ Edit the session store initialization file
+  config/initializers/session_store.rb:
+
+  require 'lib/redis_store'
+  ActionController::Base.session_store = :redis_store
+
+Verify session storage is working:
+ redis-cli
+ redis> zcount concurrent -inf +inf
+  or
+ redis> keys *
+ 
+
